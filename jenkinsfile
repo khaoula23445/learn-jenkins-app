@@ -15,6 +15,7 @@ pipeline {
                     ls -la
                     node --version
                     npm --version
+                    npm run bild
                     npm ci
                     ls -la
                 '''
@@ -30,7 +31,7 @@ pipeline {
             steps {
                 
                 sh '''
-                test -f build/index.html
+                test -f  build/index.html
                 npm test
                 '''
             }
