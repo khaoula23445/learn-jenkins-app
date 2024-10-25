@@ -63,7 +63,7 @@ pipeline {
 
                     post {
                         always {
-                            publishHTML([
+                            publishHTML([ 
                                 allowMissing: false, 
                                 alwaysLinkToLastBuild: false, 
                                 keepAll: false, 
@@ -77,7 +77,8 @@ pipeline {
                 }
             }
         }
-stage('deploy') {
+
+        stage('Deploy') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -86,16 +87,13 @@ stage('deploy') {
             }
 
             steps {
-               sh '''
-               npm install netlify-cli -g
-               node_modules/.bin/netlify --version
-               echo "Deploying to production. Site ID:$ NETLIFY_SITE_ID"
-               node_modules/.bin/netlify status
-
-               '''
-
-            }}
-
-        
+                sh '''
+                    npm install netlify-cli
+                    ./node_modules/.bin/netlify --version
+                    echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
+                    ./node_modules/.bin/netlify status
+                '''
+            }
+        }
     }
 }
